@@ -1,0 +1,6 @@
+{
+  "name": "ProGadget Hub Ltd",
+  "description": "Conversion-driven e-commerce platform for ProGadget Hub Ltd in Ekosodin featuring UK Used & New gadgets, repairs, installment calculator, and WhatsApp instant checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
