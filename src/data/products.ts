@@ -2,15 +2,18 @@ import { Product, Testimonial, DataBundle } from '../types';
 
 export const STORE_INFO = {
   name: "ProGadget Hub Ltd",
-  tagline: "Smart Gadgets. Reliable Services. Maximum Value.",
+  tagline: "100% Original Tech. Zero Counterfeits. Verified Warranties Delivered Across Ekosodin/Benin City.",
   slogan: "Pro Gadget, Pro Service, Pro You!",
-  subheading: "YOUR ONE STOP TECH SOLUTION IN EKOSODIN",
+  subheading: "Verified Warranties Delivered Across Benin City",
+  description: "Shop certified brand new and factory-tested UK-used iPhones, Samsungs, Laptops, and Computing Gear. Enjoy transparent battery health grading, instant trade-in valuations, flexible installment plans, and same-day doorstep inspection across Benin City.",
+  primaryCTA: "Shop Certified Devices",
+  secondaryCTA: "Chat on WhatsApp for Live Video Inspection",
   address: "Edo Lane off Edo Street, Ekosodin, Benin City, Edo State",
-  phoneCall: "07025089711",
-  phoneCallDisplay: "07025089711 (Calls Only)",
-  phoneWhatsApp: "07055100195",
-  phoneWhatsAppInternational: "2347055100195",
-  email: "progadgethubekosodin@gmail.com",
+  phoneCall: "09044071621",
+  phoneCallDisplay: "09044071621",
+  phoneWhatsApp: "09044071621",
+  phoneWhatsAppInternational: "2349044071621",
+  email: "destinwizz7@gmail.com",
   operatingHours: {
     weekdays: "8:00 AM – 8:00 PM",
     sunday: "12:00 PM – 6:00 PM"
@@ -603,5 +606,57 @@ export const TESTIMONIALS: Testimonial[] = [
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
     verifiedItem: "Anker 20,000mAh Powerbank",
     date: "1 month ago"
+  }
+];
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface TrustAnchor {
+  category: string;
+  details: string[];
+}
+
+export const TRUST_ANCHORS: TrustAnchor[] = [
+  {
+    category: "Store Verification",
+    details: ["Physical Experience Center: Edo Lane off Edo Street, Ekosodin, Benin City, Nigeria", "Walking distance from UNIBEN back gate with prominent brand signage"]
+  },
+  {
+    category: "Grading System",
+    details: ["Grade A+ Pristine: 85-100% Battery health, LCI Passed (Zero Water Damage), Original OEM Screen, biometrics fully active", "Grade A Clean: 80-89% Battery health, passed full hardware diagnostics, clean IMEI", "Grade B Fair: 75-79% Battery health, fully operational core board, minor visible scuffs"]
+  },
+  {
+    category: "Financing Options (Pay Small Small)",
+    details: ["Credit Direct: 25-30% upfront, 2-6 months repayment, 10-20s instant approval", "CredPal: Variable deposit, 2-4 months repayment, BVN/NIN verification", "Klump: 25% deposit, up to 12 months repayment, income/salary verified", "CDcare: 0% interest non-loan savings plan, dispatch upon reaching 50% or 100% threshold"]
+  },
+  {
+    category: "Payment Flow",
+    details: ["Hybrid Pay-on-Delivery (POD) Protocol: Pay a small non-refundable upfront commitment fee to dispatch courier, inspect device at doorstep, then transfer the remaining balance."]
+  }
+];
+
+export const FAQS: FAQItem[] = [
+  {
+    question: "How do I know your UK-Used devices are genuine and not refurbished clones?",
+    answer: "Every UK-Used device undergoes a rigorous 20-point hardware diagnostic test. We verify that the IMEI is clean and unblocked (*#06#), check internal liquid contact indicators (LCI) inside the SIM tray, ensure biometrics (Face ID/Touch ID) are fully functional, and guarantee factory-original display screens. We display exact battery health percentages on every product page and provide an authenticity guarantee on your invoice."
+  },
+  {
+    question: "Can I inspect the device physically before making a full payment?",
+    answer: "Yes. You can visit our physical retail store at our listed address in Ekosodin (Edo Lane) to inspect and test any device in person. Alternatively, for doorstep deliveries within Ekosodin/Benin City, you can pay a small upfront delivery commitment fee to dispatch our courier, inspect the device at your location, and transfer the balance once fully satisfied."
+  },
+  {
+    question: "How does the \"Pay Small Small\" installment plan work?",
+    answer: "We partner with leading credit providers including Credit Direct, CredPal, Klump, and CDcare. During web checkout or via our sales reps, select your preferred financing option. Upon submitting basic verification (BVN, Work ID, or NIN slip), you pay an initial deposit (typically 25% to 30%). Once approved, your order is dispatched immediately, and you pay the remaining balance over 2 to 12 months."
+  },
+  {
+    question: "What are your delivery timelines and fees?",
+    answer: "Orders placed before 1:00 PM qualify for same-day delivery across central locations. Direct web orders receive free standard delivery within core zones, excluding distant outlying districts. Regional deliveries are fulfilled within 24 to 48 hours via secure logistics partners."
+  },
+  {
+    question: "What happens if my purchased device develops a fault after purchase?",
+    answer: "All devices come with an explicit replacement warranty against factory defects. If your device experiences a hardware fault within the covered warranty period, bring it to our store or ship it back to us. We will inspect the unit and issue a direct replacement or resolve the issue promptly, provided the device shows no physical screen cracking, body damage, or liquid exposure."
   }
 ];

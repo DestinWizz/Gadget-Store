@@ -6,7 +6,7 @@ import {
   Phone, 
   ShieldCheck, 
   Clock, 
-  Sparkles,
+  CheckCircle2,
   Smartphone,
   Cpu,
   BatteryCharging,
@@ -109,7 +109,7 @@ export const RepairBookingModal: React.FC<RepairBookingModalProps> = ({
               <span>90-Day Warranty</span>
             </div>
             <div className="p-2.5 rounded-lg bg-[#161616] border border-white/10 flex items-center gap-2 text-gray-300 col-span-2 sm:col-span-1">
-              <Sparkles className="w-4 h-4 text-[#FFC700] shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-[#FFC700] shrink-0" />
               <span>Free TrueTone</span>
             </div>
           </div>

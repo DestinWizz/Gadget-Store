@@ -9,7 +9,7 @@ import {
   RotateCcw, 
   CreditCard, 
   CheckCircle2, 
-  Sparkles,
+  Calculator,
   Info,
   Calendar,
   Percent
@@ -54,11 +54,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
     durationMonths
   );
 
+  const totalpayment = installmentCalc.downPayment + (durationMonths * installmentCalc.monthlyPayment);
+
+
   const directWhatsAppUrl = buildProductWhatsAppUrl(product, {
     storage: selectedStorage,
     color: selectedColor,
     isPaySmallSmall: activePlan === 'financing',
     downPaymentPercent,
+    totalPayment: totalpayment,
     durationMonths,
     deliveryMethod: deliveryOption
   });
@@ -268,7 +272,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 <div className="p-4 sm:p-5 rounded-xl bg-[#161616] border border-[#FFC700]/40 space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-[#FFC700] uppercase tracking-wider flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" />
+                      <Calculator className="w-3.5 h-3.5" />
                       Interactive Financing Calculator
                     </span>
                     <span className="text-[10px] text-gray-400 font-bold uppercase">Ekosodin Scheme</span>
@@ -277,10 +281,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   {/* Down Payment Slider */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-300 font-bold uppercase text-[11px]">Initial Down Payment ({downPaymentPercent}%):</span>
+                      <label htmlFor="pdp-down-payment-slider" className="text-gray-300 font-bold uppercase text-[11px]">Initial Down Payment ({downPaymentPercent}%):</label>
                       <span className="font-black text-white text-sm">{formatNaira(installmentCalc.downPayment)}</span>
                     </div>
                     <input
+                      id="pdp-down-payment-slider"
                       type="range"
                       min="30"
                       max="70"
@@ -331,20 +336,29 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       <span className="text-gray-400 block text-[10px] font-black uppercase">Monthly Installment:</span>
                       <strong className="text-[#FFC700] font-black text-sm block mt-0.5">{formatNaira(installmentCalc.monthlyPayment)} / mo</strong>
                     </div>
+
+                    {/*Cumulative Payment*/}
+
+                    <div className="p-2.5 rounded-lg bg-black/50 border border-[#FFC700]/30">
+                    <span className="text-gray-400 block text-[10px] font-black uppercase"> Total Cumulative Payout:
+                    </span>
+                    <strong className="text-white font-black text-sm block mt-0.5">{formatNaira(totalpayment)}</strong>
+                    </div>
                   </div>
 
                   <p className="text-[11px] text-gray-400 leading-snug font-medium">
-                    💡 Simple documentation: Valid Student ID or Govt ID + Proof of address in Ekosodin / UNIBEN. Pick up gadget after down payment verification at Edo Lane!
+                    Simple documentation: Valid Student ID or Govt ID + Proof of address in Ekosodin / UNIBEN. Pick up gadget after down payment verification at Edo Lane!
                   </p>
                 </div>
               )}
 
               {/* Delivery / Pickup Choice */}
               <div className="space-y-1.5">
-                <label className="text-xs font-black uppercase tracking-wider text-gray-400 block">
+                <label htmlFor="pdp-delivery-option" className="text-xs font-black uppercase tracking-wider text-gray-400 block">
                   Delivery / Collection Preference:
                 </label>
                 <select
+                  id="pdp-delivery-option"
                   value={deliveryOption}
                   onChange={(e) => setDeliveryOption(e.target.value)}
                   className="w-full bg-[#1A1A1A] border border-white/15 rounded-md py-2.5 px-3 text-xs text-white focus:outline-none focus:border-[#FFC700] font-medium"

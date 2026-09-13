@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   CreditCard, 
-  Sparkles, 
+  Calculator, 
   CheckCircle2, 
   MessageCircle, 
   ShieldCheck, 
@@ -28,7 +28,7 @@ export const FinancingCalculatorSection: React.FC = () => {
   ];
 
   const handleApply = () => {
-    const message = `Hello ProGadget Hub Ltd! 💳\n\nI want to apply for the *Pay Small Small Financing Plan*:\n` +
+    const message = `Hello ProGadget Hub Ltd! \n\nI want to apply for the *Pay Small Small Financing Plan*:\n` +
       `- Item Value: ${formatNaira(selectedGadgetPrice)}\n` +
       `- Down Payment (${downPercent}%): ${formatNaira(calc.downPayment)}\n` +
       `- Repayment Tenure: ${tenureMonths} Month(s)\n` +
@@ -45,7 +45,7 @@ export const FinancingCalculatorSection: React.FC = () => {
       {/* Background Accent Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#FFC700]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -60,12 +60,12 @@ export const FinancingCalculatorSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
           
           {/* Left Column: Requirements & Steps */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-6 w-full">
             
-            <div className="p-6 rounded-2xl bg-[#111111] border border-white/10 space-y-4 shadow-xl">
+            <div className="p-6 rounded-2xl bg-[#111111] border border-white/10 space-y-4 shadow-xl w-full max-w-full">
               <h3 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
                 <UserCheck className="w-4 h-4 text-[#FFC700]" />
                 <span>Simple 3-Step Ekosodin Verification</span>
@@ -127,8 +127,8 @@ export const FinancingCalculatorSection: React.FC = () => {
           </div>
 
           {/* Right Column: Live Interactive Calculator Card */}
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-2xl bg-[#111111] border-2 border-[#FFC700]/40 shadow-[0_15px_45px_rgba(0,0,0,0.8)] space-y-6">
+          <div className="lg:col-span-7 w-full">
+            <div className="p-6 sm:p-8 rounded-2xl bg-[#111111] border-2 border-[#FFC700]/40 shadow-[0_15px_45px_rgba(0,0,0,0.8)] space-y-6 w-full max-w-full">
               
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
@@ -140,19 +140,20 @@ export const FinancingCalculatorSection: React.FC = () => {
                   </h3>
                 </div>
                 <div className="p-2.5 rounded-lg bg-[#FFC700]/10 text-[#FFC700] border border-[#FFC700]/30">
-                  <Sparkles className="w-5 h-5" />
+                  <Calculator className="w-5 h-5" />
                 </div>
               </div>
 
               {/* Price Customizer */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs">
-                  <label className="font-black text-gray-300 uppercase tracking-widest text-[10px]">
+                  <label htmlFor="total-gadget-cost" className="font-black text-gray-300 uppercase tracking-widest text-[10px]">
                     Total Gadget Cost (₦):
                   </label>
                   <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Type or adjust</span>
                 </div>
                 <input
+                  id="total-gadget-cost"
                   type="number"
                   value={customPriceInput}
                   onChange={(e) => {
@@ -167,12 +168,13 @@ export const FinancingCalculatorSection: React.FC = () => {
               {/* Down Payment Controls */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="font-black text-gray-300 uppercase tracking-widest text-[10px]">
+                  <label htmlFor="down-payment-slider" className="font-black text-gray-300 uppercase tracking-widest text-[10px]">
                     Initial Down Payment ({downPercent}%):
-                  </span>
+                  </label>
                   <strong className="text-base font-black text-[#FFC700] font-['Outfit',sans-serif]">{formatNaira(calc.downPayment)}</strong>
                 </div>
                 <input
+                  id="down-payment-slider"
                   type="range"
                   min="30"
                   max="70"
@@ -205,7 +207,7 @@ export const FinancingCalculatorSection: React.FC = () => {
                           : 'bg-[#1A1A1A] text-gray-300 border-white/10 hover:border-white/20'
                       }`}
                     >
-                      {m} {m === 1 ? 'Month (4 Wks)' : `${m} Months`}
+                      {m === 1 ? 'Month (4 Wks)' : `${m} Months`}
                     </button>
                   ))}
                 </div>

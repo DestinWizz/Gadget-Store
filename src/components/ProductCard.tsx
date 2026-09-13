@@ -4,7 +4,6 @@ import {
   ShoppingBag, 
   MessageCircle, 
   Star, 
-  Sparkles, 
   ShieldCheck, 
   CreditCard 
 } from 'lucide-react';
@@ -44,11 +43,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           />
 
           {/* Badges on Top Left */}
-          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10">
+          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10 items-start">
             {isUKUsed && (
-              <span className="px-2 py-0.5 rounded bg-black/90 text-[#FFC700] border border-[#FFC700]/50 text-[9px] font-black uppercase tracking-widest">
-                UK Used Grade A+
-              </span>
+              <>
+                <span className="px-2 py-0.5 rounded bg-black/95 text-[#FFC700] border border-[#FFC700]/40 text-[8px] sm:text-[9px] font-black uppercase tracking-widest">
+                  Grade A+ OEM Genuine
+                </span>
+                <span className="px-2 py-0.5 rounded bg-black/95 text-slate-100 border border-white/20 text-[8px] sm:text-[9px] font-black uppercase tracking-widest">
+                  {product.specs["Battery Health"] || "85%-100% Health"}
+                </span>
+                <span className="px-1.5 py-0.5 rounded bg-[#25D366]/95 text-white text-[8px] font-black uppercase tracking-widest">
+                  ✓ LCI Passed
+                </span>
+              </>
             )}
             {isBrandNew && (
               <span className="px-2 py-0.5 rounded bg-[#25D366] text-white text-[9px] font-black uppercase tracking-widest">
@@ -164,7 +171,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             className="py-2.5 px-3 rounded-md bg-[#25D366] hover:bg-[#20bd5b] text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(37,211,102,0.2)] transition-all"
-            title="Order directly via WhatsApp to 07055100195"
+            title="Order directly via WhatsApp to 09044071621"
           >
             <MessageCircle className="w-3.5 h-3.5 fill-white" />
             <span>WhatsApp</span>

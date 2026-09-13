@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, ChevronLeft, ChevronRight, Quote, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote, CheckCircle2 } from 'lucide-react';
 import { TESTIMONIALS } from '../data/products';
 
 export const Testimonials: React.FC = () => {

@@ -292,7 +292,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                 Book Repair Desk
               </button>
               <a
-                href="tel:07025089711"
+                href="tel:09044071621"
                 className="px-5 py-3 rounded-md bg-[#1A1A1A] hover:bg-white/10 border border-white/10 text-white font-bold text-xs uppercase tracking-widest"
               >
                 Call Tech

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, X, Sparkles, Smartphone, Wrench, CreditCard, MapPin } from 'lucide-react';
+import { MessageCircle, X, Smartphone, Wrench, CreditCard, MapPin } from 'lucide-react';
 import { STORE_INFO } from '../data/products';
 
 export const FloatingWhatsApp: React.FC = () => {

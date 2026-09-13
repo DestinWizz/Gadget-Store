@@ -9,8 +9,7 @@ import {
   Check, 
   Navigation, 
   Store, 
-  CreditCard,
-  Sparkles
+  CreditCard
 } from 'lucide-react';
 import { STORE_INFO } from '../data/products';
 

@@ -8,6 +8,7 @@ import { ProductSection } from './components/ProductSection';
 import { FinancingCalculatorSection } from './components/FinancingCalculatorSection';
 import { TrustAndLocation } from './components/TrustAndLocation';
 import { Testimonials } from './components/Testimonials';
+import { FAQSection } from './components/FAQSection';
 import { Footer } from './components/Footer';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { RepairBookingModal } from './components/RepairBookingModal';
@@ -55,7 +56,7 @@ export default function App() {
     if (toastMessage) {
       const timer = setTimeout(() => {
         setToastMessage(null);
-      }, 3500);
+      }, 350);
       return () => clearTimeout(timer);
     }
   }, [toastMessage]);
@@ -145,7 +146,7 @@ export default function App() {
   const cartTotalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-slate-100 flex flex-col relative selection:bg-[#FFC700] selection:text-black">
+    <div className="w-full min-h-screen overflow-x-hidden bg-[#0A0A0A] text-slate-100 flex flex-col relative selection:bg-[#FFC700] selection:text-black">
       
       {/* Sticky Navbar */}
       <Navbar
@@ -160,7 +161,7 @@ export default function App() {
       />
 
       {/* Main Page Sections */}
-      <main className="flex-1">
+      <main className="flex-1 w-full overflow-x-hidden">
         
         {/* 1. Hero Section (combining Layout Inspiration with Brand Flyer) */}
         <Hero
@@ -198,6 +199,9 @@ export default function App() {
 
         {/* 6. Customer Testimonials & Social Proof */}
         <Testimonials />
+
+        {/* 7. Interactive FAQs */}
+        <FAQSection />
 
       </main>
 

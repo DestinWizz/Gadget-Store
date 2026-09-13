@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   ShieldCheck, 
-  Sparkles, 
   ArrowRight, 
   Smartphone, 
   Headphones, 
@@ -11,7 +10,8 @@ import {
   Star, 
   Flame,
   Zap,
-  Repeat
+  Repeat,
+  MessageCircle
 } from 'lucide-react';
 import { STORE_INFO } from '../data/products';
 
@@ -43,41 +43,44 @@ export const Hero: React.FC<HeroProps> = ({
             
             {/* Eyebrow Label matching Bold Typography theme */}
             <span className="text-[#FFC700] text-xs font-black tracking-[0.3em] uppercase block">
-              EKOSODIN'S NUMBER ONE TECH HUB
+              EKOSODIN, BENIN CITY PREMIUM TECH HUB
             </span>
 
             {/* Main Massive Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-['Outfit',sans-serif] text-white tracking-tighter leading-[0.92] uppercase">
-              YOUR ONE STOP <br />
-              <span className="text-[#FFC700]">TECH SOLUTION.</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-['Outfit',sans-serif] text-white tracking-tighter leading-[1.05] uppercase">
+              100% Original Tech. <br />
+              <span className="text-[#FFC700]">Zero Counterfeits.</span> <br />
+              <span className="text-white">Verified Warranties.</span>
             </h1>
 
             {/* Subtext */}
-            <p className="text-sm sm:text-base text-gray-300 max-w-xl font-medium leading-relaxed">
-              <strong className="text-white font-bold">{STORE_INFO.tagline}</strong> Sales of pristine UK Used & New Phones, 100% original accessories, same-day expert repairs, and student-friendly <span className="text-[#FFC700] font-bold">Pay Small Small</span> financing in Ekosodin.
+            <p className="text-xs sm:text-sm text-gray-300 max-w-xl font-medium leading-relaxed">
+              {STORE_INFO.description}
             </p>
 
             {/* CTAs with uppercase bold typography */}
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <button
                 onClick={onExploreGadgets}
-                className="px-8 py-3.5 rounded-md bg-[#FFC700] hover:bg-[#e6b300] text-black font-black text-xs sm:text-sm uppercase tracking-widest flex items-center gap-2 shadow-[0_0_25px_rgba(255,199,0,0.35)] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                className="px-8 py-3.5 rounded-md bg-[#FFC700] hover:bg-[#e6b300] text-black font-black text-xs uppercase tracking-widest flex items-center gap-2 shadow-[0_0_25px_rgba(255,199,0,0.35)] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
-                <span>Explore Gadgets</span>
+                <span>Shop Certified Devices</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <button
-                onClick={onOpenFinancing}
-                className="px-8 py-3.5 rounded-md bg-transparent border-2 border-white/20 hover:border-white text-white font-bold text-xs sm:text-sm uppercase tracking-widest flex items-center gap-2 transition-all"
+              <a
+                href={`https://wa.me/${STORE_INFO.phoneWhatsAppInternational}?text=${encodeURIComponent("Hello! I'm viewing your Benin City/Ekosodin store. I want to inspect a device live via WhatsApp video.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3.5 rounded-md bg-[#25D366] hover:bg-[#20ba59] text-white font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(37,211,102,0.25)] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
-                <CreditCard className="w-4 h-4 text-[#FFC700]" />
-                <span>Pay Small Small</span>
-              </button>
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>WhatsApp Live Inspection</span>
+              </a>
 
               <button
                 onClick={onOpenRepair}
-                className="px-6 py-3.5 rounded-md bg-[#1A1A1A] hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white font-bold text-xs sm:text-sm uppercase tracking-widest flex items-center gap-2 transition-all"
+                className="px-6 py-3.5 rounded-md bg-[#1A1A1A] hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <Wrench className="w-4 h-4 text-[#FFC700]" />
                 <span>Fix Phone</span>

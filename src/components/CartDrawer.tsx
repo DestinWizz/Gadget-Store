@@ -10,8 +10,7 @@ import {
   Tag, 
   Truck, 
   MapPin, 
-  CreditCard,
-  Sparkles
+  CreditCard
 } from 'lucide-react';
 import { CartItem } from '../types';
 import { formatNaira, buildCartWhatsAppUrl } from '../utils/helpers';
@@ -77,11 +76,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
       ></div>
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#121212] border-l border-white/10 shadow-2xl flex flex-col justify-between">
+      <div className="fixed inset-y-0 right-0 w-full sm:w-[420px] max-w-full z-50 bg-[#111111] shadow-2xl transition-transform">
+        <div className="h-full w-full bg-[#121212] border-l border-white/10 flex flex-col justify-between">
           
           {/* Drawer Top Header */}
-          <div className="px-6 py-5 bg-[#161616] border-b border-white/10 flex items-center justify-between">
+          <div className="px-4 sm:px-6 py-5 bg-[#161616] border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <ShoppingBag className="w-5 h-5 text-[#FFC700]" />
               <h2 className="text-sm font-black font-['Outfit',sans-serif] text-white uppercase tracking-wider">
@@ -98,7 +97,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           </div>
 
           {/* Cart Item List */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="flex-1 w-full px-4 sm:px-6 overflow-y-auto space-y-4">
             
             {items.length === 0 ? (
               <div className="text-center py-16 space-y-3">
@@ -190,72 +189,83 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   </div>
                 ))}
 
-                {/* Promo Code Box */}
-                <div className="pt-2">
-                  <form onSubmit={handleApplyCoupon} className="flex gap-2">
-                    <input
-                      type="text"
-                      value={couponCode}
-                      onChange={(e) => setCouponCode(e.target.value)}
-                      placeholder="PROMO CODE (E.G. UNIBEN5)"
-                      className="flex-1 bg-[#181818] border border-white/10 rounded-md px-3 py-2 text-xs text-white uppercase placeholder-gray-500 focus:outline-none focus:border-[#FFC700] font-bold"
-                    />
-                    <button
-                      type="submit"
-                      className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-white font-black text-xs uppercase tracking-wider cursor-pointer"
+                  {/* Promo Code Box */}
+                  <div className="pt-2">
+                    <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                      <label htmlFor="cart-coupon-code" className="sr-only">Promo Code</label>
+                      <input
+                        id="cart-coupon-code"
+                        type="text"
+                        value={couponCode}
+                        onChange={(e) => setCouponCode(e.target.value)}
+                        placeholder="PROMO CODE (E.G. UNIBEN5)"
+                        className="flex-1 bg-[#181818] border border-white/10 rounded-md px-3 py-2 text-xs text-white uppercase placeholder-gray-500 focus:outline-none focus:border-[#FFC700] font-bold"
+                      />
+                      <button
+                        type="submit"
+                        className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-white font-black text-xs uppercase tracking-wider cursor-pointer"
+                      >
+                        Apply
+                      </button>
+                    </form>
+                    {discountApplied && (
+                      <span className="text-[10px] font-black uppercase text-[#25D366] block mt-1">
+                        ✓ 5% Student Promo Discount Applied!
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Delivery Preference */}
+                  <div className="space-y-2 pt-2 border-t border-white/10">
+                    <label htmlFor="cart-delivery-method" className="text-[10px] font-black text-gray-300 uppercase tracking-widest block">
+                      Delivery / Pickup in Ekosodin:
+                    </label>
+                    <select
+                      id="cart-delivery-method"
+                      value={deliveryMethod}
+                      onChange={(e) => setDeliveryMethod(e.target.value)}
+                      className="w-full bg-[#181818] border border-white/10 rounded-md py-2 px-3 text-xs text-white focus:outline-none focus:border-[#FFC700] font-medium"
                     >
-                      Apply
-                    </button>
-                  </form>
-                  {discountApplied && (
-                    <span className="text-[10px] font-black uppercase text-[#25D366] block mt-1">
-                      ✓ 5% Student Promo Discount Applied!
-                    </span>
-                  )}
-                </div>
+                      <option value="In-Store Pickup (Edo Lane, Ekosodin)">📍 In-Store Pickup at Edo Lane off Edo Street, Ekosodin</option>
+                      <option value="UNIBEN Campus Delivery (Hall / Faculty)">🎓 UNIBEN Campus Delivery (Hostel / Faculty)</option>
+                      <option value="Ekosodin Express Doorstep Delivery">🚚 Ekosodin Express Doorstep Delivery</option>
+                      <option value="Benin City Metropolis Delivery">🏙️ Benin City Metropolis Delivery</option>
+                    </select>
+                  </div>
 
-                {/* Delivery Preference */}
-                <div className="space-y-2 pt-2 border-t border-white/10">
-                  <label className="text-[10px] font-black text-gray-300 uppercase tracking-widest block">
-                    Delivery / Pickup in Ekosodin:
-                  </label>
-                  <select
-                    value={deliveryMethod}
-                    onChange={(e) => setDeliveryMethod(e.target.value)}
-                    className="w-full bg-[#181818] border border-white/10 rounded-md py-2 px-3 text-xs text-white focus:outline-none focus:border-[#FFC700] font-medium"
-                  >
-                    <option value="In-Store Pickup (Edo Lane, Ekosodin)">📍 In-Store Pickup at Edo Lane off Edo Street, Ekosodin</option>
-                    <option value="UNIBEN Campus Delivery (Hall / Faculty)">🎓 UNIBEN Campus Delivery (Hostel / Faculty)</option>
-                    <option value="Ekosodin Express Doorstep Delivery">🚚 Ekosodin Express Doorstep Delivery</option>
-                    <option value="Benin City Metropolis Delivery">🏙️ Benin City Metropolis Delivery</option>
-                  </select>
-                </div>
-
-                {/* Optional Customer Name */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  <input
-                    type="text"
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="Your Name (Optional)"
-                    className="bg-[#181818] border border-white/10 rounded-md py-2 px-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#FFC700]"
-                  />
-                  <input
-                    type="text"
-                    value={customerAddress}
-                    onChange={(e) => setCustomerAddress(e.target.value)}
-                    placeholder="Hostel / Address"
-                    className="bg-[#181818] border border-white/10 rounded-md py-2 px-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#FFC700]"
-                  />
-                </div>
-              </>
-            )}
+                  {/* Optional Customer Name */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                    <div className="flex flex-col">
+                      <label htmlFor="cart-customer-name" className="sr-only">Your Name (Optional)</label>
+                      <input
+                        id="cart-customer-name"
+                        type="text"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        placeholder="Your Name (Optional)"
+                        className="w-full bg-[#181818] border border-white/10 rounded-md py-2 px-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#FFC700]"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="cart-customer-address" className="sr-only">Hostel / Address</label>
+                      <input
+                        id="cart-customer-address"
+                        type="text"
+                        value={customerAddress}
+                        onChange={(e) => setCustomerAddress(e.target.value)}
+                        placeholder="Hostel / Address"
+                        className="w-full bg-[#181818] border border-white/10 rounded-md py-2 px-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#FFC700]"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
 
           </div>
 
           {/* Drawer Bottom Footer (Summary & WhatsApp Checkout) */}
           {items.length > 0 && (
-            <div className="p-6 bg-[#161616] border-t border-white/10 space-y-4">
+            <div className="p-4 sm:p-6 bg-[#161616] border-t border-white/10 space-y-4 w-full">
               
               {/* Financial Calculation */}
               <div className="space-y-1.5 text-xs">
@@ -281,6 +291,15 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
               </div>
 
+              {/* Safe Payment Warning Card */}
+              <div className="p-3 rounded-lg bg-[#FFC700]/10 border border-[#FFC700]/30 text-gray-300 text-[10px] space-y-1 text-left">
+                <span className="text-[#FFC700] font-black block uppercase tracking-wider">⚠️ SAFE PAYMENT NOTICE</span>
+                <p className="font-medium leading-relaxed">
+                  Always confirm orders via our official line. We only accept transfers to: 
+                  <strong className="text-white"> Opay - Destiny Irorere (9044071621)</strong>. Contact us before making payment !!.
+                </p>
+              </div>
+
               {/* Checkout Trigger */}
               <button
                 onClick={handleWhatsAppCheckout}
@@ -291,7 +310,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </button>
 
               <p className="text-[10px] text-center text-gray-400 font-black uppercase tracking-wider">
-                🔒 Instant desk response (07055100195)
+                🔒 Instant desk response (09044071621)
               </p>
 
             </div>

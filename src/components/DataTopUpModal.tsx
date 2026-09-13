@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
-import { 
-  X, 
-  Zap, 
-  MessageCircle, 
-  Check, 
-  Smartphone, 
-  Sparkles,
-  Wifi
-} from 'lucide-react';
-import { DATA_BUNDLES, STORE_INFO } from '../data/products';
+import { X, MessageCircle, Wifi } from 'lucide-react';
+import { DATA_BUNDLES } from '../data/products';
 import { formatNaira, buildDataTopUpWhatsAppUrl } from '../utils/helpers';
 
 interface DataTopUpModalProps {
@@ -20,11 +12,11 @@ export const DataTopUpModal: React.FC<DataTopUpModalProps> = ({
   isOpen,
   onClose
 }) => {
-  if (!isOpen) return null;
-
   const [selectedNetwork, setSelectedNetwork] = useState<'MTN' | 'AIRTEL' | 'GLO' | '9MOBILE'>('MTN');
   const [selectedBundleId, setSelectedBundleId] = useState<string>('mtn-2gb');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  if (!isOpen) return null;
 
   const networkBundles = DATA_BUNDLES.filter(b => b.network === selectedNetwork);
   const currentBundle = DATA_BUNDLES.find(b => b.id === selectedBundleId) || networkBundles[0];
