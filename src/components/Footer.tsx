@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { 
   Phone, 
   MessageCircle, 
@@ -15,17 +16,20 @@ import {
 } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { STORE_INFO } from '../data/products';
+import { Legal } from '../type/legal';
 
 interface FooterProps {
   onSelectCategory: (cat: string) => void;
   onOpenRepair: () => void;
   onOpenDataTopUp: () => void;
+  onOpenLegal: (tab: Legal) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onSelectCategory,
   onOpenRepair,
-  onOpenDataTopUp
+  onOpenDataTopUp,
+  onOpenLegal
 }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -144,35 +148,54 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Customer Service & Finance (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-white font-black text-xs font-['Outfit',sans-serif] uppercase tracking-widest">
-              Financing & Trust
+              Legal Policies
             </h4>
             <ul className="space-y-2 text-xs font-medium">
               <li>
                 <button 
-                  onClick={() => {
-                    const el = document.getElementById('financing-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="hover:text-[#FFC700] transition-colors uppercase text-[11px] font-bold"
+                  onClick = {() => onOpenLegal('terms')}
+                  className= "hover:text-[#FFC700] transition-colors uppercase text-[11px] font-bold text-left cursor-pointer"
                 >
-                  Pay Small Small Plan
+                  Terms of Service
                 </button>
               </li>
               <li>
-                <span className="text-gray-400 uppercase text-[11px] font-bold">30-Day Testing Warranty</span>
-              </li>
+                <button onClick={() => onOpenLegal('privacy')}
+                  className= "hover:text-[#FFC700] transition-colors uppercase text-[11px] font-bold text-left cursor-pointer"
+                  >
+                    Privacy Policy
+                </button>
+                 </li>
+                    <li>
+                <button onClick={() => onOpenLegal('bnpl')}
+                  className= "hover:text-[#FFC700] transition-colors uppercase text-[11px] font-bold text-left cursor-pointer"
+                  >
+                   Bnpl Policy
+                </button>
+                 </li>
               <li>
-                <span className="text-gray-400 uppercase text-[11px] font-bold">Phone Swap & Trade-In</span>
-              </li>
-              <li>
-                <span className="text-gray-400 uppercase text-[11px] font-bold">Student ID Verification</span>
-              </li>
-              <li>
-                <span className="text-gray-400 uppercase text-[11px] font-bold">In-Store Diagnostics</span>
-              </li>
-              <li>
-                <span className="text-gray-400 uppercase text-[11px] font-bold">POS Cash Withdrawal</span>
-              </li>
+               <button onClick={() => onOpenLegal('returns')}
+                className='hover:text-[#FFC700] transition-colors uppercase text-[11px] font-bold text-left cursor-pointer'>
+                  Return Policy
+                </button>
+                </li>
+             <li>
+               <button onClick={() => onOpenLegal('cookies')}
+                className='hover:text-[#FFC700] transition-colors uppercase text-[11px] font-bold text-left cursor-pointer'>
+                  Cookie Policy
+                </button>
+                </li>
+                <li>
+                  <button onClick={() => {
+                    localStorage.removeItem('pg_cookie_consent');
+                    window.location.reload();
+                  }}
+                  className='text-xs text-slate-400 hover:text-[#FFC700] transition-colors underline cursor-pointer'
+                  >
+                    Cookie Preference / Settings
+                  </button>
+                </li>
+             
             </ul>
           </div>
 
@@ -196,17 +219,24 @@ export const Footer: React.FC<FooterProps> = ({
                 </a>
               </div>
 
-              <div className="flex items-center gap-2.5">
-                <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0 fill-[#25D366]" />
-                <a 
-                  href={`https://wa.me/${STORE_INFO.phoneWhatsAppInternational}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-[#25D366] font-bold"
-                >
-                  WhatsApp: {STORE_INFO.phoneWhatsApp}
-                </a>
-              </div>
+             <div className="flex items-center gap-2.5">
+  {/* Authentic SVG WhatsApp Icon */}
+  <svg 
+    className="w-4 h-4 fill-[#25D366] shrink-0" 
+    viewBox="0 0 24 24" 
+    aria-hidden="true"
+  >
+    <path d="M12.011 1.985c-5.522 0-10.011 4.49-10.011 10.011 0 1.765.46 3.487 1.332 5.006L2 22l5.127-1.339a9.96 9.96 0 0 0 4.884 1.335h.004c5.52 0 10.011-4.49 10.011-10.01 0-2.672-1.041-5.183-2.932-7.073-1.892-1.891-4.403-2.933-7.083-2.933zm0 1.637c2.235 0 4.337.872 5.918 2.453 1.58 1.582 2.451 3.684 2.451 5.92 0 4.62-3.759 8.378-8.379 8.378a8.31 8.31 0 0 1-4.237-1.157l-.304-.181-3.146.822.838-3.067-.198-.316a8.32 8.32 0 0 1-1.272-4.479c0-4.62 3.759-8.379 8.379-8.379zm4.595 11.233c-.252-.126-1.492-.736-1.723-.82-.231-.084-.399-.126-.567.126-.168.252-.651.82-.798.988-.147.168-.294.189-.546.063-.252-.126-1.064-.392-2.027-1.25-.749-.668-1.255-1.493-1.402-1.745-.147-.252-.016-.388.11-.513.113-.113.252-.294.378-.441.126-.147.168-.252.252-.42.084-.168.042-.315-.021-.441-.063-.126-.567-1.365-.777-1.869-.205-.492-.413-.425-.567-.433-.147-.008-.315-.008-.483-.008-.168 0-.441.063-.672.315-.231.231-.882.861-.882 2.1 0 1.239.903 2.436 1.029 2.604.126.168 1.777 2.713 4.305 3.803.601.26 1.07.415 1.436.531.603.191 1.152.164 1.586.1.484-.071 1.492-.609 1.701-1.197.209-.588.209-1.092.147-1.197-.063-.105-.231-.168-.483-.294z" />
+  </svg>
+  <a 
+    href={`https://wa.me/${STORE_INFO.phoneWhatsAppInternational}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-300 hover:text-[#25D366] font-bold"
+  >
+    WhatsApp: {STORE_INFO.phoneWhatsApp}
+  </a>
+</div>
 
               <div className="pt-2 text-[11px] text-gray-500 font-bold uppercase tracking-wider">
                 Mon - Sat: 8:00am - 8:00pm <br />

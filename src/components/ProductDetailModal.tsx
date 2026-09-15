@@ -17,36 +17,43 @@ import {
 import { Product } from '../types';
 import { formatNaira, calculateInstallment, buildProductWhatsAppUrl } from '../utils/helpers';
 import { STORE_INFO } from '../data/products';
+import { ProductTrustSection } from './ProductTrustSection';
+import { Legal } from '../type/legal';
 
 interface ProductDetailModalProps {
   product: Product | null;
   onClose: () => void;
   onAddToCart: (product: Product, storage?: string, color?: string, isPSS?: boolean) => void;
+  onOpenLegalModal?: (tab: Legal) => void;
 }
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
   onClose,
-  onAddToCart
+  onAddToCart,
+  onOpenLegalModal
 }) => {
-  if (!product) return null;
-
-  const [selectedStorage, setSelectedStorage] = useState<string>(
-    product.storageOptions ? product.storageOptions[0] : ''
-  );
-  const [selectedColor, setSelectedColor] = useState<string>(
-    product.colorOptions ? product.colorOptions[0] : ''
-  );
+  const [selectedStorage, setSelectedStorage] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<string>('');
 
   // Pay Small Small interactive states
-  const [activePlan, setActivePlan] = useState<'outright' | 'financing'>(
-    product.paySmallSmallEligible ? 'financing' : 'outright'
-  );
-  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(
-    product.minDownPaymentPercent || 30
-  );
+  const [activePlan, setActivePlan] = useState<'outright' | 'financing'>('outright');
+  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(30);
   const [durationMonths, setDurationMonths] = useState<number>(3);
   const [deliveryOption, setDeliveryOption] = useState<string>('In-Store Pickup (Edo Lane, Ekosodin)');
+
+  React.useEffect(() => {
+    if (!product) return;
+
+    setSelectedStorage(product.storageOptions ? product.storageOptions[0] : '');
+    setSelectedColor(product.colorOptions ? product.colorOptions[0] : '');
+    setActivePlan(product.paySmallSmallEligible ? 'financing' : 'outright');
+    setDownPaymentPercent(product.minDownPaymentPercent || 30);
+    setDurationMonths(3);
+    setDeliveryOption('In-Store Pickup (Edo Lane, Ekosodin)');
+  }, [product]);
+
+  if (!product) return null;
 
   const installmentCalc = calculateInstallment(
     product.price,
@@ -55,7 +62,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   );
 
   const totalpayment = installmentCalc.downPayment + (durationMonths * installmentCalc.monthlyPayment);
-
 
   const directWhatsAppUrl = buildProductWhatsAppUrl(product, {
     storage: selectedStorage,
@@ -399,6 +405,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </button>
 
               </div>
+
+              <ProductTrustSection onOpenLegalModal={(tab) => onOpenLegalModal?.(tab)} />
 
             </div>
 

@@ -66,7 +66,7 @@ export const PRODUCTS: Product[] = [
     minDownPaymentPercent: 30,
     storageOptions: ["256GB", "512GB", "1TB"],
     colorOptions: ["Natural Titanium", "Black Titanium", "Blue Titanium", "White Titanium"],
-    warranty: "30-Day Testing Warranty + Receipt"
+    warranty: "Return Policy Warranty + Receipt"
   },
   {
     id: "iphone-14-pro",

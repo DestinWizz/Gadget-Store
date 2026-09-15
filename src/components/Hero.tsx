@@ -152,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="mt-4 grid grid-cols-2 gap-2.5 text-xs">
                 <div className="p-2.5 rounded-lg bg-[#1A1A1A] border border-white/5 flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-[#FFC700] shrink-0" />
-                  <span className="text-gray-200 font-bold uppercase text-[10px] tracking-wider">30-Day Testing Warranty</span>
+                  <span className="text-gray-200 font-bold uppercase text-[10px] tracking-wider">Return Policy Warranty</span>
                 </div>
                 <div className="p-2.5 rounded-lg bg-[#1A1A1A] border border-white/5 flex items-center gap-2">
                   <Repeat className="w-4 h-4 text-[#25D366] shrink-0" />

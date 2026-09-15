@@ -14,8 +14,11 @@ import { ProductDetailModal } from './components/ProductDetailModal';
 import { RepairBookingModal } from './components/RepairBookingModal';
 import { DataTopUpModal } from './components/DataTopUpModal';
 import { CartDrawer } from './components/CartDrawer';
+import { Legal } from './type/legal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { CheckCircle2, ShoppingBag } from 'lucide-react';
+import { LegalModal } from './components/LegalModal';
+import { CookieBanner } from './components/CookieBanner';
 import { formatNaira } from './utils/helpers';
 
 export default function App() {
@@ -29,6 +32,17 @@ export default function App() {
     }
   });
 
+    const [activeLegalTab, setActiveLegalTab] = useState<Legal | null>(null);
+    
+    const handleOpenLegal = (tab: Legal) => {
+      setActiveLegalTab(tab);
+    };
+
+    const handleCloseLegal = () => {
+      setActiveLegalTab(null)
+    };
+
+    
   // UI Modal states
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -210,6 +224,7 @@ export default function App() {
         onSelectCategory={handleSelectCategory}
         onOpenRepair={() => setIsRepairOpen(true)}
         onOpenDataTopUp={() => setIsDataTopUpOpen(true)}
+        onOpenLegal={handleOpenLegal}
       />
 
       {/* Floating Sticky WhatsApp Button */}
@@ -220,6 +235,7 @@ export default function App() {
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={handleAddToCart}
+        onOpenLegalModal={handleOpenLegal}
       />
 
       <RepairBookingModal
@@ -241,6 +257,13 @@ export default function App() {
         onClearCart={handleClearCart}
       />
 
+      <LegalModal
+      activeTab={activeLegalTab}
+      onClose={handleCloseLegal}
+      onSelectTab={handleOpenLegal}
+      />
+
+      <CookieBanner onOpenLegalModal={handleOpenLegal} />
       {/* Interactive Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-[#161616] border border-[#FFC700] text-white px-5 py-3 rounded-lg shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4">

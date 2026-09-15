@@ -31,7 +31,7 @@ export const ServicesBanner: React.FC<ServicesBannerProps> = ({
       id: 'phones',
       title: 'PHONES',
       subtitle: 'Sales of New & UK Used Phones',
-      desc: 'iPhones, Samsung Galaxy, Pixels with 30-Day Testing Warranty.',
+      desc: 'iPhones, Samsung Galaxy, Pixels with Return Policy Warranty.',
       icon: Smartphone,
       action: () => onSelectCategory('phones')
     },
