@@ -6,55 +6,69 @@ interface CookieBannerProps {
   onOpenLegalModal: (tab: Legal) => void;
 }
 export const openCookieSettings = () => {
+    localStorage.removeItem('cookie_consent');
     localStorage.removeItem('pg_cookie_consent');
     window.location.reload();
 };
+
+const applyConsentUpdate = (analyticsAllowed: boolean, adAllowed: boolean = false) => {
+  if (typeof window.gtag !== 'function') return;
+
+  window.gtag('consent', 'update', {
+    'analytics_storage': analyticsAllowed ? 'granted' : 'denied',
+    'ad_storage': adAllowed ? 'granted' : 'denied',
+    'ad_user_data': adAllowed ? 'granted' : 'denied',
+    'ad_personalization': adAllowed ? 'granted' : 'denied'
+  });
+};
+
 export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [analyticsConsent, setAnalyticsConsent] = useState(false);
 
   useEffect(() => {
-    // Check local storage for previous choice
-    const savedConsent = localStorage.getItem('pg_cookie_consent');
+    const savedConsent = localStorage.getItem('cookie_consent') || localStorage.getItem('pg_cookie_consent');
+
     if (!savedConsent) {
       setIsVisible(true);
+      setAnalyticsConsent(false);
+      return;
+    }
+
+    const hasGranted = savedConsent === 'granted';
+    setAnalyticsConsent(hasGranted);
+
+    if (hasGranted) {
+      applyConsentUpdate(true, true);
     } else {
-      const parsed = JSON.parse(savedConsent);
-      setAnalyticsConsent(parsed.analytics ?? false);
+      applyConsentUpdate(false, false);
     }
   }, []);
 
   const handleAcceptAll = () => {
-    // 1. Save preference locally
     localStorage.setItem('cookie_consent', 'granted');
-
-    // 2. Inform Google Analytics that consent was granted!
-    if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted'
-      });
-    }
-
-    // 3. Close the banner/modal state
+    localStorage.removeItem('pg_cookie_consent');
+    applyConsentUpdate(true, true);
+    setAnalyticsConsent(true);
     setIsVisible(false);
     setShowPreferences(false);
-    setAnalyticsConsent(true);
   };
 
   const handleRejectOptional = () => {
-    const preferences = { essential: true, analytics: false, timestamp: new Date().toISOString() };
-    localStorage.setItem('pg_cookie_consent', JSON.stringify(preferences));
+    localStorage.setItem('cookie_consent', 'denied');
+    localStorage.removeItem('pg_cookie_consent');
+    applyConsentUpdate(false, false);
     setAnalyticsConsent(false);
     setIsVisible(false);
+    setShowPreferences(false);
   };
 
   const handleSaveCustom = () => {
-    const preferences = { essential: true, analytics: analyticsConsent, timestamp: new Date().toISOString() };
-    localStorage.setItem('pg_cookie_consent', JSON.stringify(preferences));
+    const consentState = analyticsConsent ? 'granted' : 'denied';
+    localStorage.setItem('cookie_consent', consentState);
+    localStorage.removeItem('pg_cookie_consent');
+    applyConsentUpdate(analyticsConsent, false);
     setIsVisible(false);
     setShowPreferences(false);
   };
