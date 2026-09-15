@@ -26,10 +26,23 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) 
   }, []);
 
   const handleAcceptAll = () => {
-    const preferences = { essential: true, analytics: true, timestamp: new Date().toISOString() };
-    localStorage.setItem('pg_cookie_consent', JSON.stringify(preferences));
-    setAnalyticsConsent(true);
+    // 1. Save preference locally
+    localStorage.setItem('cookie_consent', 'granted');
+
+    // 2. Inform Google Analytics that consent was granted!
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+
+    // 3. Close the banner/modal state
     setIsVisible(false);
+    setShowPreferences(false);
+    setAnalyticsConsent(true);
   };
 
   const handleRejectOptional = () => {
