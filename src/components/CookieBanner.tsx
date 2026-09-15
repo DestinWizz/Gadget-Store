@@ -5,6 +5,26 @@ import { Legal } from '../type/legal';
 interface CookieBannerProps {
   onOpenLegalModal: (tab: Legal) => void;
 }
+
+type ConsentStatus = 'granted' | 'denied' | null;
+
+const readConsentStatus = (): ConsentStatus => {
+  const currentConsent = localStorage.getItem('cookie_consent');
+  if (currentConsent === 'granted' || currentConsent === 'denied') {
+    return currentConsent;
+  }
+
+  const legacyConsent = localStorage.getItem('pg_cookie_consent');
+  if (!legacyConsent) return null;
+
+  try {
+    const parsed = JSON.parse(legacyConsent) as { analytics?: boolean };
+    return parsed.analytics === true ? 'granted' : 'denied';
+  } catch {
+    return null;
+  }
+};
+
 export const openCookieSettings = () => {
     localStorage.removeItem('cookie_consent');
     localStorage.removeItem('pg_cookie_consent');
@@ -23,20 +43,25 @@ const applyConsentUpdate = (analyticsAllowed: boolean, adAllowed: boolean = fals
 };
 
 export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(() => readConsentStatus() === null);
   const [showPreferences, setShowPreferences] = useState(false);
   const [analyticsConsent, setAnalyticsConsent] = useState(false);
 
   useEffect(() => {
-    const savedConsent = localStorage.getItem('cookie_consent') || localStorage.getItem('pg_cookie_consent');
+    const consentStatus = readConsentStatus();
+    console.log('[Consent Audit]', {
+      event: 'initialized',
+      status: consentStatus ?? 'unset',
+      bannerVisible: consentStatus === null
+    });
 
-    if (!savedConsent) {
+    if (consentStatus === null) {
       setIsVisible(true);
       setAnalyticsConsent(false);
       return;
     }
 
-    const hasGranted = savedConsent === 'granted';
+    const hasGranted = consentStatus === 'granted';
     setAnalyticsConsent(hasGranted);
 
     if (hasGranted) {
@@ -50,6 +75,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) 
     localStorage.setItem('cookie_consent', 'granted');
     localStorage.removeItem('pg_cookie_consent');
     applyConsentUpdate(true, true);
+    console.log('[Consent Audit]', { event: 'accept_all', status: 'granted' });
     setAnalyticsConsent(true);
     setIsVisible(false);
     setShowPreferences(false);
@@ -59,6 +85,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) 
     localStorage.setItem('cookie_consent', 'denied');
     localStorage.removeItem('pg_cookie_consent');
     applyConsentUpdate(false, false);
+    console.log('[Consent Audit]', { event: 'reject_optional', status: 'denied' });
     setAnalyticsConsent(false);
     setIsVisible(false);
     setShowPreferences(false);
@@ -69,6 +96,11 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) 
     localStorage.setItem('cookie_consent', consentState);
     localStorage.removeItem('pg_cookie_consent');
     applyConsentUpdate(analyticsConsent, false);
+    console.log('[Consent Audit]', {
+      event: 'save_preferences',
+      status: consentState,
+      analytics: analyticsConsent
+    });
     setIsVisible(false);
     setShowPreferences(false);
   };
@@ -76,7 +108,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-md z-40 bg-[#111111]/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl p-5 text-white font-sans">
+    <div data-consent-banner="true" className="fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-md z-[60] bg-[#111111]/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl p-5 text-white font-sans">
       {!showPreferences ? (
         /* Main Banner View */
         <div className="space-y-4">

@@ -68,7 +68,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
     color: selectedColor,
     isPaySmallSmall: activePlan === 'financing',
     downPaymentPercent,
-    totalPayment: totalpayment,
     durationMonths,
     deliveryMethod: deliveryOption
   });

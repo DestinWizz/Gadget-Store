@@ -187,6 +187,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </li>
                 <li>
                   <button onClick={() => {
+                    localStorage.removeItem('cookie_consent');
                     localStorage.removeItem('pg_cookie_consent');
                     window.location.reload();
                   }}
