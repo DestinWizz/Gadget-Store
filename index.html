@@ -1,28 +1,20 @@
 <!doctype html>
 <html lang="en" class="dark scroll-smooth">
   <head>
-    <!-- Google Consent Mode v2 Default Setup -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
+    <!-- Google Consent Mode v2 defaults. A verified GA4 or GTM ID is required
+         before loading an external Google script; the previous ID returned 404. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ window.dataLayer.push(arguments); }
 
-  gtag('consent', 'default', {
-    'analytics_storage': 'denied',
-    'ad_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied',
-    'wait_for_update': 500
-  });
-</script>
-
-<!-- Google Tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZRJREP1L1W" crossorigin="anonymous"></script>
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-ZRJREP1L1W', {
-    anonymize_ip: true
-  });
-</script>
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ProGadget Hub Ltd | 100% Original Tech & Verified Warranties Across Benin City</title>

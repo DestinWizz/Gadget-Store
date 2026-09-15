@@ -49,10 +49,15 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) 
 
   useEffect(() => {
     const consentStatus = readConsentStatus();
+    const bannerVisible = consentStatus === null;
+    console.log('[Cookie Banner] State:', {
+      visible: bannerVisible,
+      consentValue: consentStatus
+    });
     console.log('[Consent Audit]', {
       event: 'initialized',
       status: consentStatus ?? 'unset',
-      bannerVisible: consentStatus === null
+      bannerVisible
     });
 
     if (consentStatus === null) {
@@ -108,7 +113,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenLegalModal }) 
   if (!isVisible) return null;
 
   return (
-    <div data-consent-banner="true" className="fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-md z-[60] bg-[#111111]/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl p-5 text-white font-sans">
+    <div data-consent-banner="true" className="fixed bottom-0 left-0 right-0 z-[9999] bg-[#111111]/95 backdrop-blur-md border-t border-white/10 shadow-2xl p-4 sm:bottom-4 sm:left-4 sm:right-auto sm:max-w-md sm:rounded-2xl sm:border text-white font-sans">
       {!showPreferences ? (
         /* Main Banner View */
         <div className="space-y-4">
