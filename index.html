@@ -1,25 +1,21 @@
 <!doctype html>
 <html lang="en" class="dark scroll-smooth">
   <head>
-    <!-- Google Consent Mode v2 defaults. A verified GA4 or GTM ID is required
-         before loading an external Google script; the previous ID returned 404. -->
+    <!-- Google Consent Mode v2 debugging setup -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){ window.dataLayer.push(arguments); }
-
+      function gtag(){ window.dataLayer.push(arguments); console.log('[GA4 Event]', arguments); }
+      gtag('js', new Date());
       gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'wait_for_update': 500
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
       });
+      gtag('config', 'G-NBZYFQFWBQ');
     </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBZYFQFWBQ" crossorigin="anonymous"></script>
-    <script>
-      gtag('config', 'G-NBZYFQFWBQ');
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ProGadget Hub Ltd | 100% Original Tech & Verified Warranties Across Benin City</title>
